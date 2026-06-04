@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", system-ui, -apple-system, sans-serif;
+  --color-gym-dark: #090d16;
+  --color-gym-card: #131c2e;
+  --color-gym-border: #1e293b;
+  --color-gym-accent: #10b981;
+  --color-gym-blue: #3b82f6;
+  --color-gym-purple: #8b5cf6;
+  --color-gym-orange: #f97316;
+  --color-gym-text-primary: #f8fafc;
+  --color-gym-text-secondary: #94a3b8;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-gym-dark);
+  color: var(--color-gym-text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom scrollbars for a premium look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gym-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gym-accent);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(19, 28, 46, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Pulse animation with glow */
+@keyframes accent-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+  }
+}
+
+.glow-accent {
+  animation: accent-pulse 3s infinite;
+}

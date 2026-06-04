@@ -1,0 +1,19 @@
+{
+  "name": "fitstreak-root",
+  "version": "1.0.0",
+  "description": "Root configuration for FitStreak monorepo",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "npm run build:server && npm run build:client",
+    "seed": "npm run seed --prefix server",
+    "mobile:build": "npm run mobile:build --prefix client",
+    "android": "npm run cap:open-android --prefix client",
+    "ios": "npm run cap:open-ios --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

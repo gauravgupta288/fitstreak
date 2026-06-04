@@ -1,0 +1,832 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.2.3
+2 info using node@v20.10.0
+3 timing npm:load:whichnode Completed in 7ms
+4 timing config:load:defaults Completed in 4ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
+6 timing config:load:builtin Completed in 2ms
+7 timing config:load:cli Completed in 4ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 1ms
+11 timing config:load:file:/Users/gaurav.gupta/.npmrc Completed in 3ms
+12 timing config:load:user Completed in 3ms
+13 timing config:load:file:/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 0ms
+15 timing config:load:setEnvs Completed in 5ms
+16 timing config:load Completed in 22ms
+17 timing npm:load:configload Completed in 22ms
+18 timing config:load:flatten Completed in 6ms
+19 timing npm:load:mkdirpcache Completed in 1ms
+20 timing npm:load:mkdirplogs Completed in 1ms
+21 verbose title npm install @capacitor/core
+22 verbose argv "install" "--prefix" "client" "--cache" "/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/.npm-cache" "@capacitor/core"
+23 timing npm:load:setTitle Completed in 37ms
+24 timing npm:load:display Completed in 1ms
+25 verbose logfile logs-max:10 dir:/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/.npm-cache/_logs/2026-05-30T11_07_05_598Z-
+26 verbose logfile /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/.npm-cache/_logs/2026-05-30T11_07_05_598Z-debug-0.log
+27 timing npm:load:logFile Completed in 20ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 132ms
+31 timing arborist:ctor Completed in 1ms
+32 silly logfile done cleaning log files
+33 timing idealTree:init Completed in 228ms
+34 timing idealTree:userRequests Completed in 6ms
+35 silly idealTree buildDeps
+36 silly fetch manifest @capacitor/core@*
+37 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
+38 http fetch GET 200 https://registry.npmjs.org/@capacitor%2fcore 1223ms (cache miss)
+39 silly placeDep ROOT @capacitor/core@8.3.4 OK for: client@0.0.0 want: *
+40 silly fetch manifest tslib@^2.1.0
+41 http fetch GET 200 https://registry.npmjs.org/tslib 278ms (cache miss)
+42 timing idealTree:#root Completed in 1539ms
+43 silly placeDep ROOT tslib@2.8.1 OK for: @capacitor/core@8.3.4 want: ^2.1.0
+44 timing idealTree:node_modules/@capacitor/core Completed in 4ms
+45 timing idealTree:node_modules/@tailwindcss/oxide-wasm32-wasi Completed in 0ms
+46 timing idealTree:node_modules/tslib Completed in 0ms
+47 timing idealTree:buildDeps Completed in 1547ms
+48 timing idealTree:fixDepFlags Completed in 10ms
+49 warn EBADENGINE Unsupported engine {
+49 warn EBADENGINE   package: 'eslint-visitor-keys@5.0.1',
+49 warn EBADENGINE   required: { node: '^20.19.0 || ^22.13.0 || >=24' },
+49 warn EBADENGINE   current: { node: 'v20.10.0', npm: '10.2.3' }
+49 warn EBADENGINE }
+50 timing idealTree Completed in 1813ms
+51 timing reify:loadTrees Completed in 1814ms
+52 timing reify:diffTrees Completed in 29ms
+53 silly reify moves {}
+54 timing reify:retireShallow Completed in 0ms
+55 timing reify:createSparse Completed in 26ms
+56 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-wasm32-wasi
+57 silly reify mark deleted [
+57 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-wasm32-wasi'
+57 silly reify ]
+58 timing reifyNode:node_modules/@tailwindcss/oxide-wasm32-wasi Completed in 2ms
+59 timing arborist:ctor Completed in 0ms
+60 timing reify:diffTrees Completed in 9ms
+61 timing reify:loadBundles Completed in 20ms
+62 silly audit bulk request {
+62 silly audit   '@babel/code-frame': [ '7.29.7' ],
+62 silly audit   '@babel/compat-data': [ '7.29.7' ],
+62 silly audit   '@babel/core': [ '7.29.7' ],
+62 silly audit   '@babel/generator': [ '7.29.7' ],
+62 silly audit   '@babel/helper-compilation-targets': [ '7.29.7' ],
+62 silly audit   '@babel/helper-globals': [ '7.29.7' ],
+62 silly audit   '@babel/helper-module-imports': [ '7.29.7' ],
+62 silly audit   '@babel/helper-module-transforms': [ '7.29.7' ],
+62 silly audit   '@babel/helper-plugin-utils': [ '7.29.7' ],
+62 silly audit   '@babel/helper-string-parser': [ '7.29.7' ],
+62 silly audit   '@babel/helper-validator-identifier': [ '7.29.7' ],
+62 silly audit   '@babel/helper-validator-option': [ '7.29.7' ],
+62 silly audit   '@babel/helpers': [ '7.29.7' ],
+62 silly audit   '@babel/parser': [ '7.29.7' ],
+62 silly audit   '@babel/plugin-transform-react-jsx-self': [ '7.29.7' ],
+62 silly audit   '@babel/plugin-transform-react-jsx-source': [ '7.29.7' ],
+62 silly audit   '@babel/template': [ '7.29.7' ],
+62 silly audit   '@babel/traverse': [ '7.29.7' ],
+62 silly audit   '@babel/types': [ '7.29.7' ],
+62 silly audit   '@esbuild/aix-ppc64': [ '0.21.5' ],
+62 silly audit   '@esbuild/android-arm': [ '0.21.5' ],
+62 silly audit   '@esbuild/android-arm64': [ '0.21.5' ],
+62 silly audit   '@esbuild/android-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/darwin-arm64': [ '0.21.5' ],
+62 silly audit   '@esbuild/darwin-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/freebsd-arm64': [ '0.21.5' ],
+62 silly audit   '@esbuild/freebsd-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-arm': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-arm64': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-ia32': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-loong64': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-mips64el': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-ppc64': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-riscv64': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-s390x': [ '0.21.5' ],
+62 silly audit   '@esbuild/linux-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/netbsd-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/openbsd-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/sunos-x64': [ '0.21.5' ],
+62 silly audit   '@esbuild/win32-arm64': [ '0.21.5' ],
+62 silly audit   '@esbuild/win32-ia32': [ '0.21.5' ],
+62 silly audit   '@esbuild/win32-x64': [ '0.21.5' ],
+62 silly audit   '@eslint-community/eslint-utils': [ '4.9.1' ],
+62 silly audit   'eslint-visitor-keys': [ '3.4.3', '5.0.1', '4.2.1' ],
+62 silly audit   '@eslint-community/regexpp': [ '4.12.2' ],
+62 silly audit   '@eslint/config-array': [ '0.21.2' ],
+62 silly audit   '@eslint/config-helpers': [ '0.4.2' ],
+62 silly audit   '@eslint/core': [ '0.17.0' ],
+62 silly audit   '@eslint/eslintrc': [ '3.3.5' ],
+62 silly audit   globals: [ '14.0.0', '15.15.0' ],
+62 silly audit   '@eslint/js': [ '9.39.4' ],
+62 silly audit   '@eslint/object-schema': [ '2.1.7' ],
+62 silly audit   '@eslint/plugin-kit': [ '0.4.1' ],
+62 silly audit   '@humanfs/core': [ '0.19.2' ],
+62 silly audit   '@humanfs/node': [ '0.16.8' ],
+62 silly audit   '@humanfs/types': [ '0.15.0' ],
+62 silly audit   '@humanwhocodes/module-importer': [ '1.0.1' ],
+62 silly audit   '@humanwhocodes/retry': [ '0.4.3' ],
+62 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+62 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+62 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+62 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+62 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+62 silly audit   '@reduxjs/toolkit': [ '2.12.0' ],
+62 silly audit   immer: [ '11.1.8', '10.2.0' ],
+62 silly audit   '@rolldown/pluginutils': [ '1.0.0-beta.27' ],
+62 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-android-arm64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-darwin-arm64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-darwin-x64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-freebsd-x64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-openbsd-x64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.60.4' ],
+62 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.60.4' ],
+62 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+62 silly audit   '@standard-schema/utils': [ '0.3.0' ],
+62 silly audit   '@tailwindcss/node': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.3.0' ],
+62 silly audit   '@tailwindcss/vite': [ '4.3.0' ],
+62 silly audit   '@types/babel__core': [ '7.20.5' ],
+62 silly audit   '@types/babel__generator': [ '7.27.0' ],
+62 silly audit   '@types/babel__template': [ '7.4.4' ],
+62 silly audit   '@types/babel__traverse': [ '7.28.0' ],
+62 silly audit   '@types/d3-array': [ '3.2.2' ],
+62 silly audit   '@types/d3-color': [ '3.1.3' ],
+62 silly audit   '@types/d3-ease': [ '3.0.2' ],
+62 silly audit   '@types/d3-interpolate': [ '3.0.4' ],
+62 silly audit   '@types/d3-path': [ '3.1.1' ],
+62 silly audit   '@types/d3-scale': [ '4.0.9' ],
+62 silly audit   '@types/d3-shape': [ '3.1.8' ],
+62 silly audit   '@types/d3-time': [ '3.0.4' ],
+62 silly audit   '@types/d3-timer': [ '3.0.2' ],
+62 silly audit   '@types/estree': [ '1.0.9', '1.0.8' ],
+62 silly audit   '@types/json-schema': [ '7.0.15' ],
+62 silly audit   '@types/prop-types': [ '15.7.15' ],
+62 silly audit   '@types/react': [ '18.3.29' ],
+62 silly audit   '@types/react-dom': [ '18.3.7' ],
+62 silly audit   '@types/use-sync-external-store': [ '0.0.6' ],
+62 silly audit   '@typescript-eslint/eslint-plugin': [ '8.60.0' ],
+62 silly audit   ignore: [ '7.0.5', '5.3.2' ],
+62 silly audit   '@typescript-eslint/parser': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/project-service': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/scope-manager': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/tsconfig-utils': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/type-utils': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/types': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/typescript-estree': [ '8.60.0' ],
+62 silly audit   'balanced-match': [ '4.0.4', '1.0.2' ],
+62 silly audit   'brace-expansion': [ '5.0.6', '1.1.15' ],
+62 silly audit   minimatch: [ '10.2.5', '3.1.5' ],
+62 silly audit   semver: [ '7.8.1', '6.3.1' ],
+62 silly audit   '@typescript-eslint/utils': [ '8.60.0' ],
+62 silly audit   '@typescript-eslint/visitor-keys': [ '8.60.0' ],
+62 silly audit   '@vitejs/plugin-react': [ '4.7.0' ],
+62 silly audit   acorn: [ '8.16.0' ],
+62 silly audit   'acorn-jsx': [ '5.3.2' ],
+62 silly audit   ajv: [ '6.15.0' ],
+62 silly audit   'ansi-styles': [ '4.3.0' ],
+62 silly audit   argparse: [ '2.0.1' ],
+62 silly audit   'baseline-browser-mapping': [ '2.10.32' ],
+62 silly audit   browserslist: [ '4.28.2' ],
+62 silly audit   callsites: [ '3.1.0' ],
+62 silly audit   'caniuse-lite': [ '1.0.30001793' ],
+62 silly audit   chalk: [ '4.1.2' ],
+62 silly audit   clsx: [ '2.1.1' ],
+62 silly audit   'color-convert': [ '2.0.1' ],
+62 silly audit   'color-name': [ '1.1.4' ],
+62 silly audit   'concat-map': [ '0.0.1' ],
+62 silly audit   'convert-source-map': [ '2.0.0' ],
+62 silly audit   cookie: [ '1.1.1' ],
+62 silly audit   'cross-spawn': [ '7.0.6' ],
+62 silly audit   csstype: [ '3.2.3' ],
+62 silly audit   'd3-array': [ '3.2.4' ],
+62 silly audit   'd3-color': [ '3.1.0' ],
+62 silly audit   'd3-ease': [ '3.0.1' ],
+62 silly audit   'd3-format': [ '3.1.2' ],
+62 silly audit   'd3-interpolate': [ '3.0.1' ],
+62 silly audit   'd3-path': [ '3.1.0' ],
+62 silly audit   'd3-scale': [ '4.0.2' ],
+62 silly audit   'd3-shape': [ '3.2.0' ],
+62 silly audit   'd3-time': [ '3.1.0' ],
+62 silly audit   'd3-time-format': [ '4.1.0' ],
+62 silly audit   'd3-timer': [ '3.0.1' ],
+62 silly audit   debug: [ '4.4.3' ],
+62 silly audit   'decimal.js-light': [ '2.5.1' ],
+62 silly audit   'deep-is': [ '0.1.4' ],
+62 silly audit   'detect-libc': [ '2.1.2' ],
+62 silly audit   'electron-to-chromium': [ '1.5.364' ],
+62 silly audit   'enhanced-resolve': [ '5.22.1' ],
+62 silly audit   'es-toolkit': [ '1.47.0' ],
+62 silly audit   esbuild: [ '0.21.5' ],
+62 silly audit   escalade: [ '3.2.0' ],
+62 silly audit   'escape-string-regexp': [ '4.0.0' ],
+62 silly audit   eslint: [ '9.39.4' ],
+62 silly audit   'eslint-plugin-react-hooks': [ '5.2.0' ],
+62 silly audit   'eslint-plugin-react-refresh': [ '0.4.26' ],
+62 silly audit   'eslint-scope': [ '8.4.0' ],
+62 silly audit   espree: [ '10.4.0' ],
+62 silly audit   esquery: [ '1.7.0' ],
+62 silly audit   esrecurse: [ '4.3.0' ],
+62 silly audit   estraverse: [ '5.3.0' ],
+62 silly audit   esutils: [ '2.0.3' ],
+62 silly audit   eventemitter3: [ '5.0.4' ],
+62 silly audit   'fast-deep-equal': [ '3.1.3' ],
+62 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+62 silly audit   'fast-levenshtein': [ '2.0.6' ],
+62 silly audit   fdir: [ '6.5.0' ],
+62 silly audit   'file-entry-cache': [ '8.0.0' ],
+62 silly audit   'find-up': [ '5.0.0' ],
+62 silly audit   'flat-cache': [ '4.0.1' ],
+62 silly audit   flatted: [ '3.4.2' ],
+62 silly audit   fsevents: [ '2.3.3' ],
+62 silly audit   gensync: [ '1.0.0-beta.2' ],
+62 silly audit   'glob-parent': [ '6.0.2' ],
+62 silly audit   'graceful-fs': [ '4.2.11' ],
+62 silly audit   'has-flag': [ '4.0.0' ],
+62 silly audit   'import-fresh': [ '3.3.1' ],
+62 silly audit   imurmurhash: [ '0.1.4' ],
+62 silly audit   internmap: [ '2.0.3' ],
+62 silly audit   'is-extglob': [ '2.1.1' ],
+62 silly audit   'is-glob': [ '4.0.3' ],
+62 silly audit   isexe: [ '2.0.0' ],
+62 silly audit   jiti: [ '2.7.0' ],
+62 silly audit   'js-tokens': [ '4.0.0' ],
+62 silly audit   'js-yaml': [ '4.1.1' ],
+62 silly audit   jsesc: [ '3.1.0' ],
+62 silly audit   'json-buffer': [ '3.0.1' ],
+62 silly audit   'json-schema-traverse': [ '0.4.1' ],
+62 silly audit   'json-stable-stringify-without-jsonify': [ '1.0.1' ],
+62 silly audit   json5: [ '2.2.3' ],
+62 silly audit   keyv: [ '4.5.4' ],
+62 silly audit   levn: [ '0.4.1' ],
+62 silly audit   lightningcss: [ '1.32.0' ],
+62 silly audit   'lightningcss-android-arm64': [ '1.32.0' ],
+62 silly audit   'lightningcss-darwin-arm64': [ '1.32.0' ],
+62 silly audit   'lightningcss-darwin-x64': [ '1.32.0' ],
+62 silly audit   'lightningcss-freebsd-x64': [ '1.32.0' ],
+62 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.32.0' ],
+62 silly audit   'lightningcss-linux-arm64-gnu': [ '1.32.0' ],
+62 silly audit   'lightningcss-linux-arm64-musl': [ '1.32.0' ],
+62 silly audit   'lightningcss-linux-x64-gnu': [ '1.32.0' ],
+62 silly audit   'lightningcss-linux-x64-musl': [ '1.32.0' ],
+62 silly audit   'lightningcss-win32-arm64-msvc': [ '1.32.0' ],
+62 silly audit   'lightningcss-win32-x64-msvc': [ '1.32.0' ],
+62 silly audit   'locate-path': [ '6.0.0' ],
+62 silly audit   'lodash.merge': [ '4.6.2' ],
+62 silly audit   'loose-envify': [ '1.4.0' ],
+62 silly audit   'lru-cache': [ '5.1.1' ],
+62 silly audit   'lucide-react': [ '1.17.0' ],
+62 silly audit   'magic-string': [ '0.30.21' ],
+62 silly audit   ms: [ '2.1.3' ],
+62 silly audit   nanoid: [ '3.3.12' ],
+62 silly audit   'natural-compare': [ '1.4.0' ],
+62 silly audit   'node-releases': [ '2.0.46' ],
+62 silly audit   optionator: [ '0.9.4' ],
+62 silly audit   'p-limit': [ '3.1.0' ],
+62 silly audit   'p-locate': [ '5.0.0' ],
+62 silly audit   'parent-module': [ '1.0.1' ],
+62 silly audit   'path-exists': [ '4.0.0' ],
+62 silly audit   'path-key': [ '3.1.1' ],
+62 silly audit   picocolors: [ '1.1.1' ],
+62 silly audit   picomatch: [ '4.0.4' ],
+62 silly audit   postcss: [ '8.5.15' ],
+62 silly audit   'prelude-ls': [ '1.2.1' ],
+62 silly audit   punycode: [ '2.3.1' ],
+62 silly audit   react: [ '18.3.1' ],
+62 silly audit   'react-dom': [ '18.3.1' ],
+62 silly audit   'react-is': [ '19.2.6' ],
+62 silly audit   'react-redux': [ '9.3.0' ],
+62 silly audit   'react-refresh': [ '0.17.0' ],
+62 silly audit   'react-router': [ '7.16.0' ],
+62 silly audit   'react-router-dom': [ '7.16.0' ],
+62 silly audit   recharts: [ '3.8.1' ],
+62 silly audit   redux: [ '5.0.1' ],
+62 silly audit   'redux-thunk': [ '3.1.0' ],
+62 silly audit   reselect: [ '5.1.1' ],
+62 silly audit   'resolve-from': [ '4.0.0' ],
+62 silly audit   rollup: [ '4.60.4' ],
+62 silly audit   scheduler: [ '0.23.2' ],
+62 silly audit   'set-cookie-parser': [ '2.7.2' ],
+62 silly audit   'shebang-command': [ '2.0.0' ],
+62 silly audit   'shebang-regex': [ '3.0.0' ],
+62 silly audit   'source-map-js': [ '1.2.1' ],
+62 silly audit   'strip-json-comments': [ '3.1.1' ],
+62 silly audit   'supports-color': [ '7.2.0' ],
+62 silly audit   tailwindcss: [ '4.3.0' ],
+62 silly audit   tapable: [ '2.3.3' ],
+62 silly audit   'tiny-invariant': [ '1.3.3' ],
+62 silly audit   tinyglobby: [ '0.2.16' ],
+62 silly audit   'ts-api-utils': [ '2.5.0' ],
+62 silly audit   'type-check': [ '0.4.0' ],
+62 silly audit   typescript: [ '5.6.3' ],
+62 silly audit   'typescript-eslint': [ '8.60.0' ],
+62 silly audit   'update-browserslist-db': [ '1.2.3' ],
+62 silly audit   'uri-js': [ '4.4.1' ],
+62 silly audit   'use-sync-external-store': [ '1.6.0' ],
+62 silly audit   'victory-vendor': [ '37.3.6' ],
+62 silly audit   vite: [ '5.4.21' ],
+62 silly audit   which: [ '2.0.2' ],
+62 silly audit   'word-wrap': [ '1.2.5' ],
+62 silly audit   yallist: [ '3.1.1' ],
+62 silly audit   'yocto-queue': [ '0.1.0' ],
+62 silly audit   '@capacitor/core': [ '8.3.4' ],
+62 silly audit   tslib: [ '2.8.1' ],
+62 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.3.0' ]
+62 silly audit }
+63 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-win32-x64-msvc
+64 silly reify mark deleted [
+64 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-win32-x64-msvc'
+64 silly reify ]
+65 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-win32-arm64-msvc
+66 silly reify mark deleted [
+66 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-win32-arm64-msvc'
+66 silly reify ]
+67 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-x64-musl
+68 silly reify mark deleted [
+68 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-x64-musl'
+68 silly reify ]
+69 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-x64-gnu
+70 silly reify mark deleted [
+70 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-x64-gnu'
+70 silly reify ]
+71 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm64-musl
+72 silly reify mark deleted [
+72 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm64-musl'
+72 silly reify ]
+73 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm64-gnu
+74 silly reify mark deleted [
+74 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm64-gnu'
+74 silly reify ]
+75 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm-gnueabihf
+76 silly reify mark deleted [
+76 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-linux-arm-gnueabihf'
+76 silly reify ]
+77 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-freebsd-x64
+78 silly reify mark deleted [
+78 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-freebsd-x64'
+78 silly reify ]
+79 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-darwin-arm64
+80 silly reify mark deleted [
+80 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-darwin-arm64'
+80 silly reify ]
+81 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-android-arm64
+82 silly reify mark deleted [
+82 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/lightningcss-android-arm64'
+82 silly reify ]
+83 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-win32-x64-msvc
+84 silly reify mark deleted [
+84 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-win32-x64-msvc'
+84 silly reify ]
+85 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-win32-arm64-msvc
+86 silly reify mark deleted [
+86 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-win32-arm64-msvc'
+86 silly reify ]
+87 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-x64-musl
+88 silly reify mark deleted [
+88 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-x64-musl'
+88 silly reify ]
+89 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-x64-gnu
+90 silly reify mark deleted [
+90 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-x64-gnu'
+90 silly reify ]
+91 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm64-musl
+92 silly reify mark deleted [
+92 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm64-musl'
+92 silly reify ]
+93 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm64-gnu
+94 silly reify mark deleted [
+94 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm64-gnu'
+94 silly reify ]
+95 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf
+96 silly reify mark deleted [
+96 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf'
+96 silly reify ]
+97 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-freebsd-x64
+98 silly reify mark deleted [
+98 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-freebsd-x64'
+98 silly reify ]
+99 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-darwin-arm64
+100 silly reify mark deleted [
+100 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-darwin-arm64'
+100 silly reify ]
+101 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-android-arm64
+102 silly reify mark deleted [
+102 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@tailwindcss/oxide-android-arm64'
+102 silly reify ]
+103 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-x64-msvc
+104 silly reify mark deleted [
+104 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-x64-msvc'
+104 silly reify ]
+105 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-x64-gnu
+106 silly reify mark deleted [
+106 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-x64-gnu'
+106 silly reify ]
+107 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-ia32-msvc
+108 silly reify mark deleted [
+108 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-ia32-msvc'
+108 silly reify ]
+109 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-arm64-msvc
+110 silly reify mark deleted [
+110 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-win32-arm64-msvc'
+110 silly reify ]
+111 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-openharmony-arm64
+112 silly reify mark deleted [
+112 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-openharmony-arm64'
+112 silly reify ]
+113 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-openbsd-x64
+114 silly reify mark deleted [
+114 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-openbsd-x64'
+114 silly reify ]
+115 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-x64-musl
+116 silly reify mark deleted [
+116 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-x64-musl'
+116 silly reify ]
+117 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-x64-gnu
+118 silly reify mark deleted [
+118 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-x64-gnu'
+118 silly reify ]
+119 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-s390x-gnu
+120 silly reify mark deleted [
+120 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-s390x-gnu'
+120 silly reify ]
+121 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-riscv64-musl
+122 silly reify mark deleted [
+122 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-riscv64-musl'
+122 silly reify ]
+123 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-riscv64-gnu
+124 silly reify mark deleted [
+124 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-riscv64-gnu'
+124 silly reify ]
+125 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-ppc64-musl
+126 silly reify mark deleted [
+126 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-ppc64-musl'
+126 silly reify ]
+127 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-ppc64-gnu
+128 silly reify mark deleted [
+128 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-ppc64-gnu'
+128 silly reify ]
+129 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-loong64-musl
+130 silly reify mark deleted [
+130 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-loong64-musl'
+130 silly reify ]
+131 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-loong64-gnu
+132 silly reify mark deleted [
+132 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-loong64-gnu'
+132 silly reify ]
+133 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm64-musl
+134 silly reify mark deleted [
+134 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm64-musl'
+134 silly reify ]
+135 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm64-gnu
+136 silly reify mark deleted [
+136 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm64-gnu'
+136 silly reify ]
+137 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm-musleabihf
+138 silly reify mark deleted [
+138 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm-musleabihf'
+138 silly reify ]
+139 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm-gnueabihf
+140 silly reify mark deleted [
+140 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-linux-arm-gnueabihf'
+140 silly reify ]
+141 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-freebsd-x64
+142 silly reify mark deleted [
+142 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-freebsd-x64'
+142 silly reify ]
+143 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-freebsd-arm64
+144 silly reify mark deleted [
+144 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-freebsd-arm64'
+144 silly reify ]
+145 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-darwin-arm64
+146 silly reify mark deleted [
+146 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-darwin-arm64'
+146 silly reify ]
+147 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-android-arm64
+148 silly reify mark deleted [
+148 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-android-arm64'
+148 silly reify ]
+149 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-android-arm-eabi
+150 silly reify mark deleted [
+150 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@rollup/rollup-android-arm-eabi'
+150 silly reify ]
+151 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-x64
+152 silly reify mark deleted [
+152 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-x64'
+152 silly reify ]
+153 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-ia32
+154 silly reify mark deleted [
+154 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-ia32'
+154 silly reify ]
+155 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-arm64
+156 silly reify mark deleted [
+156 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/win32-arm64'
+156 silly reify ]
+157 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/sunos-x64
+158 silly reify mark deleted [
+158 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/sunos-x64'
+158 silly reify ]
+159 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/openbsd-x64
+160 silly reify mark deleted [
+160 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/openbsd-x64'
+160 silly reify ]
+161 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/netbsd-x64
+162 silly reify mark deleted [
+162 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/netbsd-x64'
+162 silly reify ]
+163 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-x64
+164 silly reify mark deleted [
+164 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-x64'
+164 silly reify ]
+165 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-s390x
+166 silly reify mark deleted [
+166 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-s390x'
+166 silly reify ]
+167 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-riscv64
+168 silly reify mark deleted [
+168 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-riscv64'
+168 silly reify ]
+169 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-ppc64
+170 silly reify mark deleted [
+170 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-ppc64'
+170 silly reify ]
+171 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-mips64el
+172 silly reify mark deleted [
+172 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-mips64el'
+172 silly reify ]
+173 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-loong64
+174 silly reify mark deleted [
+174 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-loong64'
+174 silly reify ]
+175 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-ia32
+176 silly reify mark deleted [
+176 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-ia32'
+176 silly reify ]
+177 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-arm64
+178 silly reify mark deleted [
+178 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-arm64'
+178 silly reify ]
+179 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-arm
+180 silly reify mark deleted [
+180 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/linux-arm'
+180 silly reify ]
+181 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/freebsd-x64
+182 silly reify mark deleted [
+182 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/freebsd-x64'
+182 silly reify ]
+183 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/freebsd-arm64
+184 silly reify mark deleted [
+184 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/freebsd-arm64'
+184 silly reify ]
+185 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/darwin-arm64
+186 silly reify mark deleted [
+186 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/darwin-arm64'
+186 silly reify ]
+187 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-x64
+188 silly reify mark deleted [
+188 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-x64'
+188 silly reify ]
+189 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-arm64
+190 silly reify mark deleted [
+190 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-arm64'
+190 silly reify ]
+191 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-arm
+192 silly reify mark deleted [
+192 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/android-arm'
+192 silly reify ]
+193 verbose reify failed optional dependency /Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/aix-ppc64
+194 silly reify mark deleted [
+194 silly reify   '/Users/gaurav.gupta/Documents/antigravity/dazzling-curie/client/node_modules/@esbuild/aix-ppc64'
+194 silly reify ]
+195 timing reifyNode:node_modules/lightningcss-win32-x64-msvc Completed in 29ms
+196 timing reifyNode:node_modules/lightningcss-win32-arm64-msvc Completed in 30ms
+197 timing reifyNode:node_modules/lightningcss-linux-x64-musl Completed in 19ms
+198 timing reifyNode:node_modules/lightningcss-linux-x64-gnu Completed in 18ms
+199 timing reifyNode:node_modules/lightningcss-linux-arm64-musl Completed in 18ms
+200 timing reifyNode:node_modules/lightningcss-linux-arm64-gnu Completed in 18ms
+201 timing reifyNode:node_modules/lightningcss-linux-arm-gnueabihf Completed in 19ms
+202 timing reifyNode:node_modules/lightningcss-freebsd-x64 Completed in 19ms
+203 timing reifyNode:node_modules/lightningcss-darwin-arm64 Completed in 19ms
+204 timing reifyNode:node_modules/lightningcss-android-arm64 Completed in 19ms
+205 timing reifyNode:node_modules/@tailwindcss/oxide-win32-x64-msvc Completed in 19ms
+206 timing reifyNode:node_modules/@tailwindcss/oxide-win32-arm64-msvc Completed in 19ms
+207 timing reifyNode:node_modules/@tailwindcss/oxide-linux-x64-musl Completed in 18ms
+208 timing reifyNode:node_modules/@tailwindcss/oxide-linux-x64-gnu Completed in 18ms
+209 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm64-musl Completed in 18ms
+210 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm64-gnu Completed in 19ms
+211 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm-gnueabihf Completed in 19ms
+212 timing reifyNode:node_modules/@tailwindcss/oxide-freebsd-x64 Completed in 20ms
+213 timing reifyNode:node_modules/@tailwindcss/oxide-darwin-arm64 Completed in 20ms
+214 timing reifyNode:node_modules/@tailwindcss/oxide-android-arm64 Completed in 20ms
+215 timing reifyNode:node_modules/@rollup/rollup-win32-x64-msvc Completed in 20ms
+216 timing reifyNode:node_modules/@rollup/rollup-win32-x64-gnu Completed in 20ms
+217 timing reifyNode:node_modules/@rollup/rollup-win32-ia32-msvc Completed in 20ms
+218 timing reifyNode:node_modules/@rollup/rollup-win32-arm64-msvc Completed in 20ms
+219 timing reifyNode:node_modules/@rollup/rollup-openharmony-arm64 Completed in 20ms
+220 timing reifyNode:node_modules/@rollup/rollup-openbsd-x64 Completed in 20ms
+221 timing reifyNode:node_modules/@rollup/rollup-linux-x64-musl Completed in 20ms
+222 timing reifyNode:node_modules/@rollup/rollup-linux-x64-gnu Completed in 20ms
+223 timing reifyNode:node_modules/@rollup/rollup-linux-s390x-gnu Completed in 20ms
+224 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-musl Completed in 20ms
+225 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-gnu Completed in 20ms
+226 timing reifyNode:node_modules/@rollup/rollup-linux-ppc64-musl Completed in 20ms
+227 timing reifyNode:node_modules/@rollup/rollup-linux-ppc64-gnu Completed in 20ms
+228 timing reifyNode:node_modules/@rollup/rollup-linux-loong64-musl Completed in 21ms
+229 timing reifyNode:node_modules/@rollup/rollup-linux-loong64-gnu Completed in 21ms
+230 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-musl Completed in 21ms
+231 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-gnu Completed in 21ms
+232 timing reifyNode:node_modules/@rollup/rollup-linux-arm-musleabihf Completed in 21ms
+233 timing reifyNode:node_modules/@rollup/rollup-linux-arm-gnueabihf Completed in 21ms
+234 timing reifyNode:node_modules/@rollup/rollup-freebsd-x64 Completed in 21ms
+235 timing reifyNode:node_modules/@rollup/rollup-freebsd-arm64 Completed in 21ms
+236 timing reifyNode:node_modules/@rollup/rollup-darwin-arm64 Completed in 21ms
+237 timing reifyNode:node_modules/@rollup/rollup-android-arm64 Completed in 20ms
+238 timing reifyNode:node_modules/@rollup/rollup-android-arm-eabi Completed in 20ms
+239 timing reifyNode:node_modules/@esbuild/win32-x64 Completed in 20ms
+240 timing reifyNode:node_modules/@esbuild/win32-ia32 Completed in 20ms
+241 timing reifyNode:node_modules/@esbuild/win32-arm64 Completed in 20ms
+242 timing reifyNode:node_modules/@esbuild/sunos-x64 Completed in 20ms
+243 timing reifyNode:node_modules/@esbuild/openbsd-x64 Completed in 20ms
+244 timing reifyNode:node_modules/@esbuild/netbsd-x64 Completed in 20ms
+245 timing reifyNode:node_modules/@esbuild/linux-x64 Completed in 20ms
+246 timing reifyNode:node_modules/@esbuild/linux-s390x Completed in 20ms
+247 timing reifyNode:node_modules/@esbuild/linux-riscv64 Completed in 21ms
+248 timing reifyNode:node_modules/@esbuild/linux-ppc64 Completed in 21ms
+249 timing reifyNode:node_modules/@esbuild/linux-mips64el Completed in 21ms
+250 timing reifyNode:node_modules/@esbuild/linux-loong64 Completed in 21ms
+251 timing reifyNode:node_modules/@esbuild/linux-ia32 Completed in 20ms
+252 timing reifyNode:node_modules/@esbuild/linux-arm64 Completed in 20ms
+253 timing reifyNode:node_modules/@esbuild/linux-arm Completed in 20ms
+254 timing reifyNode:node_modules/@esbuild/freebsd-x64 Completed in 20ms
+255 timing reifyNode:node_modules/@esbuild/freebsd-arm64 Completed in 20ms
+256 timing reifyNode:node_modules/@esbuild/darwin-arm64 Completed in 20ms
+257 timing reifyNode:node_modules/@esbuild/android-x64 Completed in 20ms
+258 timing reifyNode:node_modules/@esbuild/android-arm64 Completed in 20ms
+259 timing reifyNode:node_modules/@esbuild/android-arm Completed in 20ms
+260 timing reifyNode:node_modules/@esbuild/aix-ppc64 Completed in 20ms
+261 silly tarball no local data for @capacitor/core@https://registry.npmjs.org/@capacitor/core/-/core-8.3.4.tgz. Extracting by manifest.
+262 silly tarball no local data for tslib@https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz. Extracting by manifest.
+263 http fetch GET 200 https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz 114ms (cache miss)
+264 timing reifyNode:node_modules/tslib Completed in 161ms
+265 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 313ms
+266 timing auditReport:getReport Completed in 320ms
+267 silly audit report {
+267 silly audit report   esbuild: [
+267 silly audit report     {
+267 silly audit report       id: 1102341,
+267 silly audit report       url: 'https://github.com/advisories/GHSA-67mh-4wv8-2f99',
+267 silly audit report       title: 'esbuild enables any website to send any requests to the development server and read the response',
+267 silly audit report       severity: 'moderate',
+267 silly audit report       vulnerable_versions: '<=0.24.2',
+267 silly audit report       cwe: [Array],
+267 silly audit report       cvss: [Object]
+267 silly audit report     }
+267 silly audit report   ],
+267 silly audit report   vite: [
+267 silly audit report     {
+267 silly audit report       id: 1116229,
+267 silly audit report       url: 'https://github.com/advisories/GHSA-4w7w-66w2-5vf9',
+267 silly audit report       title: 'Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling',
+267 silly audit report       severity: 'moderate',
+267 silly audit report       vulnerable_versions: '<=6.4.1',
+267 silly audit report       cwe: [Array],
+267 silly audit report       cvss: [Object]
+267 silly audit report     }
+267 silly audit report   ]
+267 silly audit report }
+268 timing metavuln:cache:get:security-advisory:esbuild:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 8ms
+269 timing metavuln:cache:get:security-advisory:vite:I1BdsVrQ8+F0Nz5pjiEY7gYSFBzvKNwOR8nQyg9euOprN34SC4VipJH1GMc8WCRl+e0xZWGr2QiYwiNwqO4gag== Completed in 8ms
+270 http fetch GET 200 https://registry.npmjs.org/esbuild 49ms (cache revalidated)
+271 timing metavuln:packument:esbuild Completed in 55ms
+272 timing metavuln:load:security-advisory:esbuild:1102341 Completed in 5ms
+273 timing metavuln:calculate:security-advisory:esbuild:1102341 Completed in 61ms
+274 http fetch GET 200 https://registry.npmjs.org/vite 72ms (cache revalidated)
+275 timing metavuln:packument:vite Completed in 103ms
+276 timing metavuln:load:security-advisory:vite:1116229 Completed in 12ms
+277 timing metavuln:calculate:security-advisory:vite:1116229 Completed in 116ms
+278 timing metavuln:cache:get:security-advisory:vite:tMBsdAS7JBTyRORp0YaJR984WAAsOxgmReSLBN0Nd41GhzEakjROICqAJ31iOdYG5Ijo/MlJ01p3ig1iN88+Tw== Completed in 12ms
+279 timing metavuln:load:security-advisory:vite:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 13ms
+280 timing metavuln:calculate:security-advisory:vite:jKdCIzePj7J1488qgRXvF8Srh9wutSuR1exB8YooNX62hT+qhtrUXYbArLNoIhgwbaCqKpmduh18syZU7BR9SA== Completed in 25ms
+281 timing metavuln:cache:get:security-advisory:@tailwindcss/vite:lMK3O+kEr71vusKS2Pw4G1U3RWcQv99P3ShhluQCPXoDR/cp7YqM4PZUDEHtZu9OsssltQZkG1Tn42JiBbalLQ== Completed in 120ms
+282 timing metavuln:cache:get:security-advisory:@vitejs/plugin-react:9Gy9+ze27G1us6B+W8biV10fSWWlbvxdqXOWR2dOcacJriijvaJSB375JaNqMBMF4g4ZE1YqsyqGPI5D0gHDqQ== Completed in 119ms
+283 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fplugin-react 217ms (cache revalidated)
+284 timing metavuln:packument:@vitejs/plugin-react Completed in 220ms
+285 timing metavuln:load:security-advisory:@vitejs/plugin-react:I1BdsVrQ8+F0Nz5pjiEY7gYSFBzvKNwOR8nQyg9euOprN34SC4VipJH1GMc8WCRl+e0xZWGr2QiYwiNwqO4gag== Completed in 2ms
+286 timing metavuln:calculate:security-advisory:@vitejs/plugin-react:I1BdsVrQ8+F0Nz5pjiEY7gYSFBzvKNwOR8nQyg9euOprN34SC4VipJH1GMc8WCRl+e0xZWGr2QiYwiNwqO4gag== Completed in 222ms
+287 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2fvite 264ms (cache revalidated)
+288 timing metavuln:packument:@tailwindcss/vite Completed in 273ms
+289 timing metavuln:load:security-advisory:@tailwindcss/vite:I1BdsVrQ8+F0Nz5pjiEY7gYSFBzvKNwOR8nQyg9euOprN34SC4VipJH1GMc8WCRl+e0xZWGr2QiYwiNwqO4gag== Completed in 6ms
+290 timing metavuln:calculate:security-advisory:@tailwindcss/vite:I1BdsVrQ8+F0Nz5pjiEY7gYSFBzvKNwOR8nQyg9euOprN34SC4VipJH1GMc8WCRl+e0xZWGr2QiYwiNwqO4gag== Completed in 279ms
+291 timing auditReport:init Completed in 435ms
+292 timing reify:audit Completed in 757ms
+293 http fetch GET 200 https://registry.npmjs.org/@capacitor/core/-/core-8.3.4.tgz 735ms (cache miss)
+294 timing reifyNode:node_modules/@capacitor/core Completed in 779ms
+295 timing reify:unpack Completed in 781ms
+296 timing reify:unretire Completed in 0ms
+297 timing build:queue Completed in 7ms
+298 timing build:deps Completed in 7ms
+299 timing build Completed in 7ms
+300 timing reify:build Completed in 8ms
+301 timing reify:trash Completed in 13ms
+302 timing reify:save Completed in 146ms
+303 timing reify Completed in 2938ms
+304 silly ADD node_modules/tslib
+305 silly ADD node_modules/@capacitor/core
+306 silly ADD
+307 silly ADD
+308 silly ADD
+309 silly ADD
+310 silly ADD
+311 silly ADD
+312 silly ADD
+313 silly ADD
+314 silly ADD
+315 silly ADD
+316 silly ADD
+317 silly ADD
+318 silly ADD
+319 silly ADD
+320 silly ADD
+321 silly ADD
+322 silly ADD
+323 silly ADD
+324 silly ADD
+325 silly ADD
+326 silly ADD
+327 silly ADD
+328 silly ADD
+329 silly ADD
+330 silly ADD
+331 silly ADD
+332 silly ADD
+333 silly ADD
+334 silly ADD
+335 silly ADD
+336 silly ADD
+337 silly ADD
+338 silly ADD
+339 silly ADD
+340 silly ADD
+341 silly ADD
+342 silly ADD
+343 silly ADD
+344 silly ADD
+345 silly ADD
+346 silly ADD
+347 silly ADD
+348 silly ADD
+349 silly ADD
+350 silly ADD
+351 silly ADD
+352 silly ADD
+353 silly ADD
+354 silly ADD
+355 silly ADD
+356 silly ADD
+357 silly ADD
+358 silly ADD
+359 silly ADD
+360 silly ADD
+361 silly ADD
+362 silly ADD
+363 silly ADD
+364 silly ADD
+365 silly ADD
+366 silly ADD
+367 silly ADD
+368 silly ADD
+369 silly ADD
+370 silly ADD
+371 silly ADD
+372 silly ADD
+373 timing command:install Completed in 2976ms
+374 verbose exit 0
+375 timing npm Completed in 4085ms
+376 info ok
