@@ -5,8 +5,8 @@
   "scripts": {
     "install:all": "npm install && npm install --prefix client && npm install --prefix server",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "build:client": "npm run build --prefix client",
-    "build:server": "npm run build --prefix server",
+    "build:client": "npm install --prefix client --include=dev && npm run build --prefix client",
+    "build:server": "npm install --prefix server --include=dev && npm run build --prefix server",
     "build": "npm run build:server && npm run build:client",
     "seed": "npm run seed --prefix server",
     "mobile:build": "npm run mobile:build --prefix client",
