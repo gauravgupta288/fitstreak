@@ -179,6 +179,7 @@ const AddWorkout: React.FC = () => {
           name: ex.name,
           muscleGroup: ex.muscleGroup,
           sets: ex.sets.map((s: any) => ({ reps: s.reps, weight: s.weight })),
+          duration: ex.duration || 0,
           notes: ex.notes || '',
           isCustom: !inLibrary && ex.name !== '',
           customName: !inLibrary ? ex.name : ''
@@ -576,8 +577,11 @@ const AddWorkout: React.FC = () => {
                     type="number"
                     min="1"
                     required
-                    value={exercise.duration || 15}
-                    onChange={(e) => handleExerciseChange(index, 'duration', Number(e.target.value))}
+                    value={exercise.duration === undefined || exercise.duration === 0 ? '' : exercise.duration}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      handleExerciseChange(index, 'duration', val === '' ? 0 : Number(val));
+                    }}
                     className="block w-full px-3 py-2 bg-gym-dark border border-gym-border/50 rounded-xl text-gym-text-primary focus:outline-none focus:border-gym-accent text-sm font-bold"
                     placeholder="e.g. 30"
                   />

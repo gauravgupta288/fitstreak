@@ -48,13 +48,16 @@ export const createWorkout = async (req: AuthRequest, res: Response): Promise<vo
     if (user) {
       const updatedUser = await User.findById(req.user.id);
       if (updatedUser) {
+        const currentXP = Number(updatedUser.xp) || 0;
+        const currentStreak = Number(updatedUser.currentStreak) || 0;
         const baseXP = 100;
-        const streakBonus = updatedUser.currentStreak * 10; // 10 XP bonus per streak day
-        updatedUser.xp += baseXP + streakBonus;
+        const streakBonus = currentStreak * 10; // 10 XP bonus per streak day
+        updatedUser.xp = currentXP + baseXP + streakBonus;
 
         // Level formula: Level = floor(XP / 500) + 1
+        const currentLevel = Number(updatedUser.level) || 1;
         const newLevel = Math.floor(updatedUser.xp / 500) + 1;
-        if (newLevel > updatedUser.level) {
+        if (newLevel > currentLevel) {
           updatedUser.level = newLevel;
         }
 
@@ -409,7 +412,7 @@ export const recalculateUserStreak = async (userId: string, clientDateStr?: stri
     }
 
     user.currentStreak = currentStreak;
-    user.longestStreak = Math.max(longestStreak, user.longestStreak);
+    user.longestStreak = Math.max(longestStreak, user.longestStreak || 0);
     user.lastWorkoutDate = lastWorkoutDateStr;
     await user.save();
   } catch (error) {
