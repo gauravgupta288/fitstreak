@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { apiRequest, getLocalDateString } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { Plus, Trash2, Save, ArrowLeft, AlertCircle, Sparkles, Minus, Mic, MicOff } from 'lucide-react';
+import { SpeechRecognition as CapSpeech } from '@capacitor-community/speech-recognition';
+import { Capacitor } from '@capacitor/core';
 
 interface PredefinedExercise {
   _id: string;
@@ -30,8 +32,9 @@ const MUSCLE_GROUPS = ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Core', 'Ca
 // Generate standard options for reps dropdown (e.g. 1 to 50 reps)
 const REP_OPTIONS = Array.from({ length: 50 }, (_, i) => i + 1);
 
-const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-const isSpeechSupported = !!SpeechRecognition;
+const WebSpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+const isNative = Capacitor.isNativePlatform();
+const isSpeechSupported = isNative || !!WebSpeechRecognition;
 
 const AddWorkout: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -184,41 +187,88 @@ const AddWorkout: React.FC = () => {
     }
   };
 
-  const startListening = () => {
-    if (!isSpeechSupported) return;
-    
+  const startListeningNative = async () => {
+    try {
+      // Request permission first
+      const permResult = await CapSpeech.requestPermissions();
+      if (permResult.speechRecognition !== 'granted') {
+        setError('Microphone permission denied. Please allow microphone access in Settings.');
+        return;
+      }
+
+      setError('');
+      setVoiceText('');
+      setVoiceFeedback('Listening...');
+      setListening(true);
+
+      // Check if already listening & stop first
+      try { await CapSpeech.stop(); } catch (_) { /* ignore */ }
+
+      // Add listener for partial results
+      await CapSpeech.removeAllListeners();
+      await CapSpeech.addListener('partialResults', (data: any) => {
+        if (data.matches && data.matches.length > 0) {
+          setVoiceText(data.matches[0]);
+        }
+      });
+
+      const result = await CapSpeech.start({
+        language: 'en-US',
+        popup: false,
+        partialResults: true,
+      });
+
+      setListening(false);
+
+      if (result.matches && result.matches.length > 0) {
+        const transcript = result.matches[0];
+        parseVoiceInput(transcript);
+      } else {
+        setVoiceFeedback('No speech detected. Try again.');
+      }
+    } catch (err: any) {
+      console.error('Native speech error:', err);
+      setError(`Speech error: ${err.message || err}`);
+      setListening(false);
+    }
+  };
+
+  const startListeningWeb = () => {
+    if (!WebSpeechRecognition) return;
+
     setError('');
     setVoiceText('');
     setVoiceFeedback('Listening...');
-    
-    const recognition = new SpeechRecognition();
+
+    const recognition = new WebSpeechRecognition();
     recognition.continuous = false;
     recognition.lang = 'en-US';
     recognition.interimResults = false;
-    
-    recognition.onstart = () => {
-      setListening(true);
-    };
-    
-    recognition.onend = () => {
-      setListening(false);
-    };
-    
+
+    recognition.onstart = () => setListening(true);
+    recognition.onend = () => setListening(false);
     recognition.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
       setError(`Speech error: ${event.error}`);
       setListening(false);
     };
-    
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       parseVoiceInput(transcript);
     };
-    
+
     try {
       recognition.start();
     } catch (err) {
       console.error('Failed to start speech recognition:', err);
+    }
+  };
+
+  const startListening = () => {
+    if (isNative) {
+      startListeningNative();
+    } else {
+      startListeningWeb();
     }
   };
 
