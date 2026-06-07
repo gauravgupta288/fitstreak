@@ -29,7 +29,8 @@ const exerciseSchema = new mongoose_1.Schema({
         required: [true, 'Sets are required'],
         validate: [
             function (val) {
-                return this.muscleGroup === 'Cardio' || (val && val.length > 0);
+                const group = (this.muscleGroup || '').trim().toLowerCase();
+                return group === 'cardio' || (val && val.length > 0);
             },
             'Exercise must have at least one set',
         ],

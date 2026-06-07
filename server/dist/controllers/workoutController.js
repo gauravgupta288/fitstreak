@@ -44,12 +44,15 @@ const createWorkout = async (req, res) => {
         if (user) {
             const updatedUser = await User_1.default.findById(req.user.id);
             if (updatedUser) {
+                const currentXP = Number(updatedUser.xp) || 0;
+                const currentStreak = Number(updatedUser.currentStreak) || 0;
                 const baseXP = 100;
-                const streakBonus = updatedUser.currentStreak * 10; // 10 XP bonus per streak day
-                updatedUser.xp += baseXP + streakBonus;
+                const streakBonus = currentStreak * 10; // 10 XP bonus per streak day
+                updatedUser.xp = currentXP + baseXP + streakBonus;
                 // Level formula: Level = floor(XP / 500) + 1
+                const currentLevel = Number(updatedUser.level) || 1;
                 const newLevel = Math.floor(updatedUser.xp / 500) + 1;
-                if (newLevel > updatedUser.level) {
+                if (newLevel > currentLevel) {
                     updatedUser.level = newLevel;
                 }
                 await updatedUser.save();
@@ -203,8 +206,8 @@ const getWorkoutStats = async (req, res) => {
         startOfWeek.setHours(0, 0, 0, 0);
         // Get start of this month
         const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        let workoutsThisWeek = 0;
-        let workoutsThisMonth = 0;
+        const activeDatesThisWeek = new Set();
+        const activeDatesThisMonth = new Set();
         let totalCaloriesBurned = 0;
         let caloriesThisWeek = 0;
         let caloriesThisMonth = 0;
@@ -216,11 +219,11 @@ const getWorkoutStats = async (req, res) => {
             const cals = w.caloriesBurned || 0;
             totalCaloriesBurned += cals;
             if (workoutDate >= startOfWeek) {
-                workoutsThisWeek++;
+                activeDatesThisWeek.add(w.date);
                 caloriesThisWeek += cals;
             }
             if (workoutDate >= startOfMonth) {
-                workoutsThisMonth++;
+                activeDatesThisMonth.add(w.date);
                 caloriesThisMonth += cals;
             }
             caloriesHistory.push({
@@ -228,6 +231,8 @@ const getWorkoutStats = async (req, res) => {
                 calories: cals,
             });
         });
+        const workoutsThisWeek = activeDatesThisWeek.size;
+        const workoutsThisMonth = activeDatesThisMonth.size;
         // Calculate Personal Records (PRs) per exercise
         // Format: { [exerciseName]: { maxWeight: number, maxReps: number, muscleGroup: string } }
         const prs = {};
@@ -378,7 +383,7 @@ const recalculateUserStreak = async (userId, clientDateStr) => {
             currentStreak = 0;
         }
         user.currentStreak = currentStreak;
-        user.longestStreak = Math.max(longestStreak, user.longestStreak);
+        user.longestStreak = Math.max(longestStreak, user.longestStreak || 0);
         user.lastWorkoutDate = lastWorkoutDateStr;
         await user.save();
     }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiRequest, getLocalDateString } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { Plus, Trash2, Save, ArrowLeft, AlertCircle, Sparkles, Minus } from 'lucide-react';
+import { Plus, Trash2, Save, ArrowLeft, AlertCircle, Sparkles, Minus, Mic, MicOff } from 'lucide-react';
 
 interface PredefinedExercise {
   _id: string;
@@ -30,6 +30,9 @@ const MUSCLE_GROUPS = ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Core', 'Ca
 // Generate standard options for reps dropdown (e.g. 1 to 50 reps)
 const REP_OPTIONS = Array.from({ length: 50 }, (_, i) => i + 1);
 
+const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+const isSpeechSupported = !!SpeechRecognition;
+
 const AddWorkout: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const isEditMode = !!id;
@@ -49,6 +52,175 @@ const AddWorkout: React.FC = () => {
   const [fetchingData, setFetchingData] = useState(isEditMode);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+
+  // Voice Logger States
+  const [listening, setListening] = useState(false);
+  const [voiceText, setVoiceText] = useState('');
+  const [voiceFeedback, setVoiceFeedback] = useState('');
+
+  const parseVoiceInput = (transcript: string) => {
+    const text = transcript.toLowerCase().trim();
+    setVoiceText(transcript);
+    setVoiceFeedback('');
+
+    // Try to find matching exercise from library
+    let matchedEx: PredefinedExercise | undefined;
+    let longestMatchLen = 0;
+
+    for (const libEx of exerciseLibrary) {
+      const nameClean = libEx.name.toLowerCase();
+      if (text.includes(nameClean) && nameClean.length > longestMatchLen) {
+        matchedEx = libEx;
+        longestMatchLen = nameClean.length;
+      }
+    }
+
+    if (!matchedEx) {
+      for (const libEx of exerciseLibrary) {
+        const nameParts = libEx.name.toLowerCase().split(/\s+/).filter(p => p.length > 3 && p !== 'press' && p !== 'curl');
+        for (const part of nameParts) {
+          if (text.includes(part)) {
+            matchedEx = libEx;
+            break;
+          }
+        }
+        if (matchedEx) break;
+      }
+    }
+
+    if (!matchedEx) {
+      if (text.includes('walk')) {
+        matchedEx = exerciseLibrary.find(e => e.name.toLowerCase() === 'walking');
+      } else if (text.includes('run')) {
+        matchedEx = exerciseLibrary.find(e => e.name.toLowerCase() === 'running' || e.name.toLowerCase() === 'treadmill');
+      } else if (text.includes('cycl')) {
+        matchedEx = exerciseLibrary.find(e => e.name.toLowerCase() === 'cycling');
+      }
+    }
+
+    if (!matchedEx) {
+      setVoiceFeedback('Could not recognize exercise. Try saying "walking 30 minutes".');
+      return;
+    }
+
+    const isCardio = matchedEx.muscleGroup.toLowerCase() === 'cardio';
+
+    if (isCardio) {
+      let durationVal = 15;
+      const durationMatch = text.match(/(\d+)\s*(?:min|minute|minutes|hour|hours|hr|hrs)?/);
+      if (durationMatch) {
+        const num = Number(durationMatch[1]);
+        if (!isNaN(num) && num > 0) {
+          if (text.includes('hour') || text.includes('hr')) {
+            durationVal = num * 60;
+          } else {
+            durationVal = num;
+          }
+        }
+      }
+
+      const newExercise: FormExercise = {
+        name: matchedEx.name,
+        muscleGroup: matchedEx.muscleGroup,
+        sets: [],
+        duration: durationVal,
+        notes: 'Logged via voice',
+        isCustom: false,
+        customName: ''
+      };
+
+      setExercises((prev) => {
+        if (prev.length === 1 && prev[0].name === '') {
+          return [newExercise];
+        }
+        return [...prev, newExercise];
+      });
+
+      setVoiceFeedback(`Added Cardio: ${matchedEx.name} (${durationVal} mins)`);
+    } else {
+      let weightVal = 0;
+      const weightMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:kg|kilogram|kilograms|lbs|pounds|weight)/);
+      if (weightMatch) {
+        weightVal = Number(weightMatch[1]) || 0;
+      } else {
+        const weightMatchFallback = text.match(/at\s+(\d+(?:\.\d+)?)/);
+        if (weightMatchFallback) weightVal = Number(weightMatchFallback[1]) || 0;
+      }
+
+      let repsVal = 10;
+      const repsMatch = text.match(/(\d+)\s*(?:rep|reps|repeat|repeats)/);
+      if (repsMatch) {
+        repsVal = Number(repsMatch[1]) || 10;
+      }
+
+      let setsVal = 3;
+      const setsMatch = text.match(/(\d+)\s*(?:set|sets)/);
+      if (setsMatch) {
+        setsVal = Number(setsMatch[1]) || 3;
+      }
+
+      const setsArray = Array.from({ length: setsVal }, () => ({
+        reps: repsVal,
+        weight: weightVal
+      }));
+
+      const newExercise: FormExercise = {
+        name: matchedEx.name,
+        muscleGroup: matchedEx.muscleGroup,
+        sets: setsArray,
+        notes: 'Logged via voice',
+        isCustom: false,
+        customName: ''
+      };
+
+      setExercises((prev) => {
+        if (prev.length === 1 && prev[0].name === '') {
+          return [newExercise];
+        }
+        return [...prev, newExercise];
+      });
+
+      setVoiceFeedback(`Added Strength: ${matchedEx.name} (${setsVal} sets of ${repsVal} reps @ ${weightVal}kg)`);
+    }
+  };
+
+  const startListening = () => {
+    if (!isSpeechSupported) return;
+    
+    setError('');
+    setVoiceText('');
+    setVoiceFeedback('Listening...');
+    
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    
+    recognition.onstart = () => {
+      setListening(true);
+    };
+    
+    recognition.onend = () => {
+      setListening(false);
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setError(`Speech error: ${event.error}`);
+      setListening(false);
+    };
+    
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      parseVoiceInput(transcript);
+    };
+    
+    try {
+      recognition.start();
+    } catch (err) {
+      console.error('Failed to start speech recognition:', err);
+    }
+  };
 
   useEffect(() => {
     const initialize = async () => {
@@ -476,6 +648,64 @@ const AddWorkout: React.FC = () => {
               <span>⚡ Calculated dynamically based on exercises, sets, weights & duration.</span>
             </p>
           </div>
+        </div>
+
+        {/* Voice Logger Card */}
+        <div className="bg-gym-card border border-gym-border/40 p-4 rounded-2xl shadow-lg space-y-3.5 relative overflow-hidden">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-gym-accent animate-pulse">🎙️</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-gym-text-secondary">Voice Workout Logger</span>
+            </div>
+            {isSpeechSupported ? (
+              <span className="text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 px-2 py-0.5 rounded-full font-bold">
+                Voice Ready
+              </span>
+            ) : (
+              <span className="text-[10px] bg-rose-500/10 border border-rose-500/30 text-rose-500 px-2 py-0.5 rounded-full font-bold">
+                Not Supported
+              </span>
+            )}
+          </div>
+          
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={!isSpeechSupported}
+              onClick={startListening}
+              className={`flex-1 py-3 px-4 rounded-xl font-extrabold text-xs flex items-center justify-center gap-2 transition cursor-pointer border ${
+                listening 
+                  ? 'bg-rose-500/20 border-rose-500/40 text-rose-400 animate-pulse'
+                  : 'bg-gym-accent/15 border-gym-accent/30 text-gym-accent hover:bg-gym-accent/25'
+              }`}
+            >
+              {listening ? (
+                <>
+                  <MicOff className="h-4 w-4 animate-bounce" />
+                  <span>Listening... Speak Now</span>
+                </>
+              ) : (
+                <>
+                  <Mic className="h-4 w-4" />
+                  <span>Log via Voice (e.g. "walking 30 minutes")</span>
+                </>
+              )}
+            </button>
+          </div>
+          
+          {voiceText && (
+            <div className="bg-gym-dark/50 p-2.5 rounded-xl border border-gym-border/20 space-y-1 animate-fadeIn">
+              <span className="text-[9px] text-gym-text-secondary font-extrabold uppercase tracking-wider block">Heard:</span>
+              <p className="text-xs text-gym-text-primary italic font-semibold">"{voiceText}"</p>
+            </div>
+          )}
+          
+          {voiceFeedback && (
+            <div className="bg-gym-accent/10 p-2.5 rounded-xl border border-gym-accent/25 text-xs text-gym-accent font-extrabold flex items-center gap-1.5 animate-fadeIn">
+              <span>⚡</span>
+              <span>{voiceFeedback}</span>
+            </div>
+          )}
         </div>
 
         {/* Exercises Section */}
