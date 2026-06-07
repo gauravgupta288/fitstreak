@@ -69,46 +69,67 @@ const AddWorkout: React.FC = () => {
       }
 
       const userWeight = user?.weight || 70;
-      let totalBaseMET = 0;
-      let totalSets = 0;
+      let totalCalories = 0;
+      let strengthExercises: FormExercise[] = [];
+      let cardioDuration = 0;
 
+      // 1. Calculate Cardio exercises first
       exercises.forEach((ex) => {
         const muscleGroup = (ex.muscleGroup || '').toLowerCase();
-        const setsCount = ex.sets ? ex.sets.length : 0;
-        totalSets += setsCount;
-
-        let baseMET = 4.0; // standard default
         if (muscleGroup === 'cardio') {
-          baseMET = 7.5;
-        } else if (muscleGroup === 'legs' || muscleGroup === 'back' || muscleGroup === 'full body') {
-          baseMET = 5.0;
-        } else if (muscleGroup === 'arms' || muscleGroup === 'core') {
-          baseMET = 3.5;
+          const exDuration = ex.duration && ex.duration > 0 ? ex.duration : (duration / exercises.length);
+          cardioDuration += exDuration;
+          
+          const baseMET = 7.5; // Running/Cycling/Swimming MET
+          const calories = baseMET * userWeight * (exDuration / 60);
+          totalCalories += calories;
+        } else {
+          strengthExercises.push(ex);
         }
-
-        // Weight lifted modifier
-        if (ex.sets && ex.sets.length > 0) {
-          const avgWeight = ex.sets.reduce((sum, s) => sum + (Number(s.weight) || 0), 0) / ex.sets.length;
-          if (avgWeight > 80) {
-            baseMET += 1.0;
-          } else if (avgWeight > 40) {
-            baseMET += 0.5;
-          }
-        }
-
-        totalBaseMET += baseMET * setsCount;
       });
 
-      const avgMET = totalSets > 0 ? totalBaseMET / totalSets : 4.0;
-      const setsPerMinute = totalSets / duration;
-      
-      let densityModifier = setsPerMinute / 0.5;
-      densityModifier = Math.max(0.4, Math.min(1.5, densityModifier));
+      // 2. Calculate Strength exercises if any
+      if (strengthExercises.length > 0) {
+        const strengthDuration = Math.max(0, duration - cardioDuration);
+        const activeStrengthDuration = strengthDuration > 0 ? strengthDuration : duration;
+        
+        let totalBaseMET = 0;
+        let totalSets = 0;
 
-      const sessionMET = avgMET * densityModifier;
-      const calories = sessionMET * userWeight * (duration / 60);
+        strengthExercises.forEach((ex) => {
+          const muscleGroup = (ex.muscleGroup || '').toLowerCase();
+          const setsCount = ex.sets ? ex.sets.length : 0;
+          totalSets += setsCount;
 
-      setCaloriesBurned(Math.round(calories));
+          let baseMET = 4.0;
+          if (muscleGroup === 'legs' || muscleGroup === 'back' || muscleGroup === 'full body') {
+            baseMET = 5.0;
+          }
+
+          // Weight lifted modifier
+          if (ex.sets && ex.sets.length > 0) {
+            const avgWeight = ex.sets.reduce((sum, s) => sum + (Number(s.weight) || 0), 0) / ex.sets.length;
+            if (avgWeight > 80) {
+              baseMET += 1.0;
+            } else if (avgWeight > 40) {
+              baseMET += 0.5;
+            }
+          }
+
+          totalBaseMET += baseMET * setsCount;
+        });
+
+        const avgMET = totalSets > 0 ? totalBaseMET / totalSets : 4.0;
+        const setsPerMinute = totalSets / activeStrengthDuration;
+        let densityModifier = setsPerMinute / 0.5;
+        densityModifier = Math.max(0.4, Math.min(1.5, densityModifier));
+
+        const sessionMET = avgMET * densityModifier;
+        const strengthCalories = sessionMET * userWeight * (activeStrengthDuration / 60);
+        totalCalories += strengthCalories;
+      }
+
+      setCaloriesBurned(Math.max(1, Math.round(totalCalories)));
     };
 
     calculateCalories();
@@ -207,6 +228,15 @@ const AddWorkout: React.FC = () => {
       }
     } else if (field === 'muscleGroup') {
       updated[index].muscleGroup = value;
+      const isCardio = value.toLowerCase() === 'cardio';
+      if (isCardio) {
+        updated[index].sets = [];
+        updated[index].duration = 15;
+      } else {
+        updated[index].sets = [{ reps: 10, weight: 0 }];
+        updated[index].duration = 0;
+      }
+      
       // Auto-populate the name with the first matching exercise of the new muscle group
       const matched = exerciseLibrary.find(e => e.muscleGroup.toLowerCase() === value.toLowerCase());
       if (matched) {
@@ -301,10 +331,19 @@ const AddWorkout: React.FC = () => {
         setError(`Exercise #${i + 1} needs a name.`);
         return;
       }
-      for (let j = 0; j < ex.sets.length; j++) {
-        const s = ex.sets[j];
-        if (s.reps <= 0 || s.weight < 0) {
-          setError(`Exercise #${i + 1}, Set #${j + 1} values cannot be negative or zero (reps).`);
+      
+      const isCardio = ex.muscleGroup.toLowerCase() === 'cardio';
+      if (!isCardio) {
+        for (let j = 0; j < ex.sets.length; j++) {
+          const s = ex.sets[j];
+          if (s.reps <= 0 || s.weight < 0) {
+            setError(`Exercise #${i + 1}, Set #${j + 1} values cannot be negative or zero (reps).`);
+            return;
+          }
+        }
+      } else {
+        if (!ex.duration || ex.duration <= 0) {
+          setError(`Exercise #${i + 1} must have a valid duration.`);
           return;
         }
       }
@@ -312,12 +351,16 @@ const AddWorkout: React.FC = () => {
 
     setLoading(true);
     // Prepare payload
-    const payloadExercises = exercises.map(ex => ({
-      name: ex.isCustom ? ex.customName?.trim() : ex.name.trim(),
-      muscleGroup: ex.muscleGroup,
-      sets: ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
-      notes: ex.notes || ''
-    }));
+    const payloadExercises = exercises.map(ex => {
+      const isCardio = ex.muscleGroup.toLowerCase() === 'cardio';
+      return {
+        name: ex.isCustom ? ex.customName?.trim() : ex.name.trim(),
+        muscleGroup: ex.muscleGroup,
+        sets: isCardio ? [] : ex.sets.map(s => ({ reps: s.reps, weight: s.weight })),
+        duration: isCardio ? (ex.duration || 15) : 0,
+        notes: ex.notes || ''
+      };
+    });
 
     try {
       if (isEditMode) {
@@ -523,83 +566,101 @@ const AddWorkout: React.FC = () => {
                 </div>
               )}
 
-              {/* Sets Log Table/List */}
-              <div className="space-y-2 border-t border-gym-border/20 pt-3">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-[11px] font-bold text-gym-text-secondary uppercase tracking-wider">Sets & Reps</span>
-                  <button
-                    type="button"
-                    onClick={() => handleAddSet(index)}
-                    className="text-[10px] text-gym-accent bg-gym-accent/10 px-2 py-0.5 rounded border border-gym-accent/30 font-bold hover:bg-gym-accent/20 transition"
-                  >
-                    + Add Set
-                  </button>
+              {exercise.muscleGroup.toLowerCase() === 'cardio' ? (
+                // Cardio Duration Input
+                <div className="space-y-1.5 border-t border-gym-border/20 pt-3.5 animate-fadeIn">
+                  <label className="block text-[11px] font-semibold text-gym-text-secondary uppercase">
+                    Cardio Duration (minutes)
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    required
+                    value={exercise.duration || 15}
+                    onChange={(e) => handleExerciseChange(index, 'duration', Number(e.target.value))}
+                    className="block w-full px-3 py-2 bg-gym-dark border border-gym-border/50 rounded-xl text-gym-text-primary focus:outline-none focus:border-gym-accent text-sm font-bold"
+                    placeholder="e.g. 30"
+                  />
                 </div>
+              ) : (
+                // Sets Log Table/List
+                <div className="space-y-2 border-t border-gym-border/20 pt-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[11px] font-bold text-gym-text-secondary uppercase tracking-wider">Sets & Reps</span>
+                    <button
+                      type="button"
+                      onClick={() => handleAddSet(index)}
+                      className="text-[10px] text-gym-accent bg-gym-accent/10 px-2 py-0.5 rounded border border-gym-accent/30 font-bold hover:bg-gym-accent/20 transition"
+                    >
+                      + Add Set
+                    </button>
+                  </div>
 
-                <div className="space-y-2.5">
-                  {exercise.sets.map((set, setIdx) => (
-                    <div key={setIdx} className="grid grid-cols-12 gap-2 items-center bg-gym-dark/30 p-2 rounded-xl border border-gym-border/10">
-                      {/* Set label */}
-                      <div className="col-span-2 text-xs font-bold text-gym-text-secondary text-center">
-                        S{setIdx + 1}
-                      </div>
+                  <div className="space-y-2.5">
+                    {exercise.sets.map((set, setIdx) => (
+                      <div key={setIdx} className="grid grid-cols-12 gap-2 items-center bg-gym-dark/30 p-2 rounded-xl border border-gym-border/10">
+                        {/* Set label */}
+                        <div className="col-span-2 text-xs font-bold text-gym-text-secondary text-center">
+                          S{setIdx + 1}
+                        </div>
 
-                      {/* Reps Dropdown */}
-                      <div className="col-span-4 flex flex-col gap-0.5">
-                        <select
-                          value={set.reps}
-                          onChange={(e) => handleSetChange(index, setIdx, 'reps', Number(e.target.value))}
-                          className="w-full bg-gym-dark border border-gym-border/50 text-gym-text-primary rounded-lg p-1.5 text-xs focus:outline-none focus:border-gym-accent"
-                        >
-                          {REP_OPTIONS.map((val) => (
-                            <option key={val} value={val}>{val} reps</option>
-                          ))}
-                        </select>
-                      </div>
+                        {/* Reps Dropdown */}
+                        <div className="col-span-4 flex flex-col gap-0.5">
+                          <select
+                            value={set.reps}
+                            onChange={(e) => handleSetChange(index, setIdx, 'reps', Number(e.target.value))}
+                            className="w-full bg-gym-dark border border-gym-border/50 text-gym-text-primary rounded-lg p-1.5 text-xs focus:outline-none focus:border-gym-accent"
+                          >
+                            {REP_OPTIONS.map((val) => (
+                              <option key={val} value={val}>{val} reps</option>
+                            ))}
+                          </select>
+                        </div>
 
-                      {/* Weight Selector */}
-                      <div className="col-span-5 flex items-center justify-between bg-gym-dark border border-gym-border/50 rounded-lg overflow-hidden">
-                        <button
-                          type="button"
-                          onClick={() => adjustWeight(index, setIdx, -2.5)}
-                          className="px-1.5 py-1 text-gym-text-secondary hover:text-rose-500 hover:bg-gym-card transition"
-                        >
-                          <Minus className="h-3 w-3" />
-                        </button>
-                        <input
-                          type="number"
-                          min="0"
-                          step="0.5"
-                          required
-                          value={set.weight}
-                          onChange={(e) => handleSetChange(index, setIdx, 'weight', Number(e.target.value))}
-                          className="w-full bg-transparent text-center text-xs text-gym-text-primary focus:outline-none font-bold [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => adjustWeight(index, setIdx, 2.5)}
-                          className="px-1.5 py-1 text-gym-text-secondary hover:text-gym-accent hover:bg-gym-card transition"
-                        >
-                          <Plus className="h-3 w-3" />
-                        </button>
-                      </div>
-
-                      {/* Remove Set Button */}
-                      <div className="col-span-1 text-right">
-                        {exercise.sets.length > 1 && (
+                        {/* Weight Selector */}
+                        <div className="col-span-5 flex items-center justify-between bg-gym-dark border border-gym-border/50 rounded-lg overflow-hidden">
                           <button
                             type="button"
-                            onClick={() => handleRemoveSet(index, setIdx)}
-                            className="text-rose-500 hover:text-rose-400 p-1 hover:bg-rose-500/10 rounded transition"
+                            onClick={() => adjustWeight(index, setIdx, -2.5)}
+                            className="px-1.5 py-1 text-gym-text-secondary hover:text-rose-500 hover:bg-gym-card transition"
                           >
-                            <Trash2 className="h-3.5 w-3.5" />
+                            <Minus className="h-3 w-3" />
                           </button>
-                        )}
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.5"
+                            required
+                            value={set.weight}
+                            onChange={(e) => handleSetChange(index, setIdx, 'weight', Number(e.target.value))}
+                            className="w-full bg-transparent text-center text-xs text-gym-text-primary focus:outline-none font-bold [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => adjustWeight(index, setIdx, 2.5)}
+                            className="px-1.5 py-1 text-gym-text-secondary hover:text-gym-accent hover:bg-gym-card transition"
+                          >
+                            <Plus className="h-3 w-3" />
+                          </button>
+                        </div>
+
+                        {/* Remove Set Button */}
+                        <div className="col-span-1 text-right">
+                          {exercise.sets.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveSet(index, setIdx)}
+                              className="text-rose-500 hover:text-rose-400 p-1 hover:bg-rose-500/10 rounded transition"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Notes Input */}
               <div>

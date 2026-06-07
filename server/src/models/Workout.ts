@@ -29,7 +29,9 @@ const exerciseSchema = new Schema<IExercise>({
     type: [setSchema],
     required: [true, 'Sets are required'],
     validate: [
-      (val: any[]) => val && val.length > 0,
+      function (this: any, val: any[]) {
+        return this.muscleGroup === 'Cardio' || (val && val.length > 0);
+      },
       'Exercise must have at least one set',
     ],
   },

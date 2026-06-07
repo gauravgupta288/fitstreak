@@ -13,6 +13,7 @@ interface Exercise {
   name: string;
   muscleGroup: string;
   sets: SetDetail[];
+  duration?: number;
   notes?: string;
 }
 
@@ -238,15 +239,22 @@ const History: React.FC = () => {
                                  </h5>
                                </div>
                                
-                               <div className="space-y-1.5 mt-2">
-                                 {exercise.sets && exercise.sets.map((set, sIdx) => (
-                                   <div key={sIdx} className="flex justify-between items-center text-xs bg-gym-dark/35 p-1.5 px-3 rounded-lg border border-gym-border/10">
-                                     <span className="text-gym-text-secondary font-semibold">Set {sIdx + 1}</span>
-                                     <span className="text-gym-text-primary font-bold">{set.reps} reps</span>
-                                     <span className="text-gym-accent font-extrabold">{set.weight} kg</span>
-                                   </div>
-                                 ))}
-                               </div>
+                                {exercise.muscleGroup?.toLowerCase() === 'cardio' ? (
+                                  <div className="text-xs bg-gym-accent/10 p-1.5 px-3 rounded-lg border border-gym-accent/20 flex justify-between items-center mt-2">
+                                    <span className="text-gym-text-secondary font-semibold">⏱️ Duration</span>
+                                    <span className="text-gym-accent font-extrabold">{exercise.duration || 15} minutes</span>
+                                  </div>
+                                ) : (
+                                  <div className="space-y-1.5 mt-2">
+                                    {exercise.sets && exercise.sets.map((set, sIdx) => (
+                                      <div key={sIdx} className="flex justify-between items-center text-xs bg-gym-dark/35 p-1.5 px-3 rounded-lg border border-gym-border/10">
+                                        <span className="text-gym-text-secondary font-semibold">Set {sIdx + 1}</span>
+                                        <span className="text-gym-text-primary font-bold">{set.reps} reps</span>
+                                        <span className="text-gym-accent font-extrabold">{set.weight} kg</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
  
                                {exercise.notes && (
                                  <div className="text-[11px] text-gym-text-secondary italic border-t border-gym-border/10 pt-1.5 mt-1">
