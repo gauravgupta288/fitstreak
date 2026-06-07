@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Zap, Mail, Lock, User as UserIcon, AlertCircle, ArrowRight, Settings } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, AlertCircle, ArrowRight, Settings } from 'lucide-react';
 import ServerSettingsModal from '../components/ServerSettingsModal';
 
 const Register: React.FC = () => {
@@ -58,9 +58,7 @@ const Register: React.FC = () => {
           <Settings className="h-5 w-5" />
         </button>
         <div className="flex flex-col items-center">
-          <div className="bg-gym-accent/15 p-3 rounded-full border border-gym-accent/30 text-gym-accent mb-3 flex items-center justify-center">
-            <Zap className="h-8 w-8 text-gym-accent fill-gym-accent" />
-          </div>
+          <img src="/logo.png" alt="FitStreak Logo" className="h-16 w-16 object-contain rounded-2xl mb-4 shadow-lg border border-gym-border/40" />
           <h2 className="text-3xl font-extrabold tracking-tight text-gym-text-primary">
             Create Account
           </h2>

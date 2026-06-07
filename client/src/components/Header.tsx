@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, Zap } from 'lucide-react';
+import { Flame } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
@@ -8,9 +8,7 @@ const Header: React.FC = () => {
   return (
     <header className="glass sticky top-0 left-0 right-0 z-40 px-4 py-3 border-b border-gym-border/40 flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <div className="bg-gym-accent/10 p-1.5 rounded-lg border border-gym-accent/30 flex items-center justify-center">
-          <Zap className="h-5 w-5 text-gym-accent fill-gym-accent" />
-        </div>
+        <img src="/logo.png" alt="FitStreak Logo" className="h-7 w-7 object-contain rounded-md" />
         <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-gym-accent to-gym-blue bg-clip-text text-transparent">
           FitStreak
         </span>
