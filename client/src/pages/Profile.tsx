@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, Mail, Trophy, Sparkles, Award, Scale, Ruler, Edit3, Save } from 'lucide-react';
+import { useTheme, THEMES } from '../context/ThemeContext';
+import { LogOut, Mail, Trophy, Sparkles, Award, Scale, Ruler, Edit3, Save, Palette, Check } from 'lucide-react';
 import { apiRequest } from '../utils/api';
 
 interface BadgeItem {
@@ -23,6 +24,7 @@ const BADGES: BadgeItem[] = [
 
 const Profile: React.FC = () => {
   const { user, logout, refreshUser } = useAuth();
+  const { currentTheme, setThemeById } = useTheme();
 
   const [isEditing, setIsEditing] = useState(false);
   const [heightVal, setHeightVal] = useState<number | string>('');
@@ -247,6 +249,58 @@ const Profile: React.FC = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Theme Selector Card */}
+      <div className="bg-gym-card border border-gym-border/40 p-5 rounded-2xl shadow-lg space-y-4">
+        <div className="flex items-center gap-1.5">
+          <Palette className="h-4.5 w-4.5 text-gym-purple" />
+          <span className="text-xs font-bold uppercase tracking-wider text-gym-text-secondary">App Theme</span>
+        </div>
+
+        <div className="space-y-2.5">
+          {THEMES.map((theme) => {
+            const isActive = currentTheme.id === theme.id;
+            return (
+              <button
+                key={theme.id}
+                onClick={() => setThemeById(theme.id)}
+                className={`w-full flex items-center gap-3.5 p-3 rounded-xl border transition-all duration-300 cursor-pointer text-left ${
+                  isActive
+                    ? 'border-gym-accent/60 bg-gym-accent/10 shadow-[0_0_15px_rgba(16,185,129,0.1)]'
+                    : 'border-gym-border/20 bg-gym-dark/40 hover:border-gym-border/50 hover:bg-gym-dark/60'
+                }`}
+              >
+                {/* Color swatches */}
+                <div className="flex gap-1 shrink-0">
+                  {theme.preview.map((color, i) => (
+                    <div
+                      key={i}
+                      className="h-7 w-7 rounded-lg border border-white/10 shadow-sm"
+                      style={{ backgroundColor: color }}
+                    />
+                  ))}
+                </div>
+
+                {/* Theme info */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm">{theme.emoji}</span>
+                    <span className="text-xs font-extrabold text-gym-text-primary truncate">{theme.name}</span>
+                  </div>
+                  <p className="text-[10px] text-gym-text-secondary truncate mt-0.5">{theme.description}</p>
+                </div>
+
+                {/* Active indicator */}
+                {isActive && (
+                  <div className="shrink-0 h-6 w-6 rounded-full bg-gym-accent flex items-center justify-center animate-fadeIn">
+                    <Check className="h-3.5 w-3.5 text-gym-dark" strokeWidth={3} />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Achievements Badges Card */}
