@@ -224,8 +224,8 @@ export const getWorkoutStats = async (req: AuthRequest, res: Response): Promise<
     // Get start of this month
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-    let workoutsThisWeek = 0;
-    let workoutsThisMonth = 0;
+    const activeDatesThisWeek = new Set<string>();
+    const activeDatesThisMonth = new Set<string>();
     let totalCaloriesBurned = 0;
     let caloriesThisWeek = 0;
     let caloriesThisMonth = 0;
@@ -239,11 +239,11 @@ export const getWorkoutStats = async (req: AuthRequest, res: Response): Promise<
       totalCaloriesBurned += cals;
 
       if (workoutDate >= startOfWeek) {
-        workoutsThisWeek++;
+        activeDatesThisWeek.add(w.date);
         caloriesThisWeek += cals;
       }
       if (workoutDate >= startOfMonth) {
-        workoutsThisMonth++;
+        activeDatesThisMonth.add(w.date);
         caloriesThisMonth += cals;
       }
 
@@ -252,6 +252,9 @@ export const getWorkoutStats = async (req: AuthRequest, res: Response): Promise<
         calories: cals,
       });
     });
+
+    const workoutsThisWeek = activeDatesThisWeek.size;
+    const workoutsThisMonth = activeDatesThisMonth.size;
 
     // Calculate Personal Records (PRs) per exercise
     // Format: { [exerciseName]: { maxWeight: number, maxReps: number, muscleGroup: string } }
