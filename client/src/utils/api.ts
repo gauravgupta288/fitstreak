@@ -14,16 +14,14 @@ const getDefaultApiUrl = () => {
 };
 
 export const getApiBaseUrl = (): string => {
-  const cachedUrl = localStorage.getItem('fitstreak_api_url');
-  const envUrl = import.meta.env.VITE_API_URL;
-  
-  if (envUrl && envUrl.includes('onrender.com')) {
-    if (cachedUrl && (cachedUrl.includes('localhost') || cachedUrl.includes('10.0.2.2'))) {
-      localStorage.removeItem('fitstreak_api_url');
-      return envUrl;
-    }
+  // In production builds, always use the built-in VITE_API_URL
+  // to avoid cached local/development URLs from breaking the app.
+  if (import.meta.env.PROD) {
+    return import.meta.env.VITE_API_URL || 'https://fitstreak-byrw.onrender.com';
   }
-  
+
+  // In development mode, allow manual overrides from localStorage
+  const cachedUrl = localStorage.getItem('fitstreak_api_url');
   return cachedUrl || getDefaultApiUrl();
 };
 
