@@ -25,7 +25,7 @@ catch (e) {
 const app = (0, express_1.default)();
 // Middlewares
 app.use((0, cors_1.default)({
-    origin: '*', // For local development, allow all origins
+    origin: true, // Echoes the request origin dynamically (required when credentials: true)
     credentials: true,
 }));
 app.use(express_1.default.json());
