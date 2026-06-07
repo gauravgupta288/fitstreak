@@ -24,7 +24,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: '*', // For local development, allow all origins
+  origin: true, // Echoes the request origin dynamically (required when credentials: true)
   credentials: true,
 }));
 app.use(express.json());

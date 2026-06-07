@@ -14,7 +14,17 @@ const getDefaultApiUrl = () => {
 };
 
 export const getApiBaseUrl = (): string => {
-  return localStorage.getItem('fitstreak_api_url') || getDefaultApiUrl();
+  const cachedUrl = localStorage.getItem('fitstreak_api_url');
+  const envUrl = import.meta.env.VITE_API_URL;
+  
+  if (envUrl && envUrl.includes('onrender.com')) {
+    if (cachedUrl && (cachedUrl.includes('localhost') || cachedUrl.includes('10.0.2.2'))) {
+      localStorage.removeItem('fitstreak_api_url');
+      return envUrl;
+    }
+  }
+  
+  return cachedUrl || getDefaultApiUrl();
 };
 
 export const setApiBaseUrl = (url: string) => {
